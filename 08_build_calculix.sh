@@ -4,7 +4,7 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T14:21:00+0100
-# Last modified: 2024-04-22T17:12:47+0200
+# Last modified: 2024-04-23T01:09:14+0200
 
 set -e
 
@@ -17,7 +17,9 @@ rm -rf CalculiX
 
 cd ccx
 cp ../../patches/Makefile_RFS .
+patch -p 1 < ../../patches/ccx/ccx_pastix.h.patch
 patch -p 1 < ../../patches/ccx/ccx_pastix.c.patch
+patch -p 3 < ../../patches/ccx/0004-fixup-implicit-function-declaration.patch
 gmake -f Makefile_RFS
 strip ccx_2.21_i8
 mv ccx_2.21_i8 ccx_i8
