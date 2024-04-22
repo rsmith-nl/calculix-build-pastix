@@ -1,9 +1,8 @@
 PASTIX_INCLUDE = ../../include/
 DIR=../spooles
 
-CFLAGS = -O2 -fopenmp -fpic -I$(DIR) -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DINTSIZE64 -DPASTIX -DPASTIX_FP32
-FFLAGS = -O2 -fopenmp -fpic -fdefault-integer-8 -ffixed-form
-FFLAGS += -std=legacy -fallow-argument-mismatch
+CFLAGS = -O2 -fopenmp -I$(DIR) -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DINTSIZE64 -DPASTIX -DPASTIX_FP32
+FFLAGS = -O2 -fopenmp -fdefault-integer-8 -ffixed-form -std=legacy -fallow-argument-mismatch
 
 CC=gcc13
 FC=gfortran13
