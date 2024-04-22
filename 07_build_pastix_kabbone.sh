@@ -4,7 +4,7 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:42:32+0100
-# Last modified: 2024-04-22T19:25:19+0200
+# Last modified: 2024-04-22T19:50:29+0200
 
 set -e
 
@@ -18,8 +18,8 @@ cd pastix
 
 patch < ../../patches/pastix/kabbone-CMakeLists.txt.patch
 patch < ../../patches/pastix/spm.c.patch
+patch < ../../patches/pastix/bcsc_z.h.patch
 #patch < ../../patches/pastix/api.c.patch
-#patch < ../../patches/pastix/bcsc_z.h.patch
 #patch < ../../patches/pastix/bcsc_zinit.c.patch
 #patch < ../../patches/pastix/bvec_zcompute.c.patch
 #patch < ../../patches/pastix/bvec.c.patch
@@ -34,13 +34,6 @@ patch < ../../patches/pastix/spm.c.patch
 #patch < ../../patches/pastix/z_refine_gmres_gpu.c.patch
 #sed -i '.orig' -e '/cublasHandle_t/d' -e '/cublasStatus_t/d' -e '/cublas_v2\.h/d' sopalin/parsec/*.jdf
 
-
-cd cmake_modules/morse_cmake/modules/precision_generator/
-patch < ../../../../../../patches/pastix/Conversion.py.patch
-cd -
-cd spm/cmake_modules/morse_cmake/modules/precision_generator/
-patch < ../../../../../../../patches/pastix/Conversion.py.patch
-cd -
 
 # Requires Python 2.7.
 
