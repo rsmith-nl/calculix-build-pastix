@@ -1,10 +1,10 @@
 #!/bin/sh
-# file: 02_build_arpack.sh
+# file: 03_build_arpack.sh
 # vim:fileencoding=utf-8:ft=sh
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-15T15:21:42+0100
-# Last modified: 2024-03-24T15:05:19+0100
+# Last modified: 2024-04-22T22:53:09+0200
 
 set -e
 
