@@ -1,18 +1,27 @@
---- bcsc/bcsc_z.h.orig	2024-04-22 19:47:27.890452000 +0200
-+++ bcsc/bcsc_z.h	2024-04-22 19:47:49.766305000 +0200
-@@ -18,7 +18,6 @@
- 
- 
- 
--#if defined(PASTIX_WITH_CUDA)
- void transpose_z_Matrix(pastix_int_t 		n,
- 						pastix_int_t* 		colptrIn, 
- 						pastix_int_t* 		rowptrIn, 
-@@ -36,7 +35,6 @@
+--- bcsc/bcsc_z.h.orig	2021-01-10 11:58:33.000000000 +0100
++++ bcsc/bcsc_z.h	2024-04-22 19:59:11.828502000 +0200
+@@ -36,6 +36,24 @@
  					  pastix_int_t* 	rowptrOut, 
  					  cuDoubleComplex*  valuesOut,
  					  pastix_int_t* 	sorttab);
--#endif
++#else
++void transpose_z_Matrix(pastix_int_t            n,
++                        pastix_int_t*           colptrIn, 
++                        pastix_int_t*           rowptrIn,
++                        pastix_int_t**          rowPrediction,
++                        pastix_complex64_t*     valuesIn, 
++                        pastix_complex64_t*     valuesOut);
++
++void permute_z_Matrix(pastix_int_t              n,
++                      pastix_int_t*         colptrIn,
++                      pastix_int_t*         rowptrIn, 
++                      pastix_complex64_t*   valuesIn, 
++                      pastix_int_t*         perm, 
++                      pastix_int_t*         peri, 
++                      pastix_int_t*         colptrOut, 
++                      pastix_int_t*         rowptrOut, 
++                      pastix_complex64_t*  valuesOut,
++                      pastix_int_t*         sorttab);
+ #endif
  					  
  /**
-  * @addtogroup bcsc_internal
