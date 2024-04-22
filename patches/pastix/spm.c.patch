@@ -1,0 +1,13 @@
+--- spm/src/spm.c.orig	2024-03-23 18:01:14.132373000 +0100
++++ spm/src/spm.c	2024-03-23 18:01:52.985133000 +0100
+@@ -29,9 +29,9 @@
+ #include <parsec/data_distribution.h>
+ #if defined(PASTIX_WITH_CUDA)
+ #include <parsec/devices/cuda/dev_cuda.h>
++#include <cuda_runtime.h>
+ #endif
+ 
+-#include <cuda_runtime.h>
+ #include <cblas.h>
+ #include <lapacke.h>
+ 

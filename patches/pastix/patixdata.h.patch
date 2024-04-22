@@ -1,0 +1,26 @@
+--- common/pastixdata.h.orig	2024-03-23 17:42:09.006604000 +0100
++++ common/pastixdata.h	2024-03-23 17:43:30.837200000 +0100
+@@ -18,8 +18,11 @@
+ #include "isched.h"
+ #include "symbol.h"
+ #include "queue.h"
++
++#ifdef PASTIX_WITH_CUDA
+ #include <cublas_v2.h>
+ #include <cuda_runtime.h>
++#endif
+ 
+ /*
+  * Steps of the pastix solver
+@@ -89,9 +92,11 @@
+ 
+     pastix_model_t  *cpu_models;         /**< CPU model coefficients for the kernels                              */
+     pastix_model_t  *gpu_models;         /**< GPU model coefficients for the kernels                              */
++#ifdef PASTIX_WITH_CUDA
+     cublasHandle_t *cublas_handle;
+     cublasStatus_t *cublas_stat;
+     cudaStream_t    streamGPU;
++#endif
+ 
+     char            *dirtemp;            /**< Unique directory name to store output files                         */
+ 

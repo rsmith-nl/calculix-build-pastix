@@ -1,0 +1,40 @@
+PASTIX_INCLUDE = ../../include/
+DIR=../spooles
+
+WFLAGS = -Wno-unused-variable -Wno-unused-argument -Wno-maybe-uninitialized
+WFLAGS += -Wno-unused-label -Wno-conversion
+CFLAGS = -Wall -O2 -fopenmp -fpic -I$(DIR) -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DINTSIZE64 -DPASTIX -DPASTIX_FP32 $(WFLAGS)
+FFLAGS = -Wall -O2 -fopenmp -fpic -fdefault-integer-8 $(WFLAGS) -Wno-unused-dummy-argument
+
+CC=gcc13
+FC=gfortran13
+
+.c.o :
+	$(CC) $(CFLAGS) -c $<
+.f.o :
+	$(FC) $(FFLAGS) -c $<
+
+include Makefile.inc
+
+SCCXMAIN = ccx_2.21.c
+
+OCCXF = $(SCCXF:.f=.o)
+OCCXC = $(SCCXC:.c=.o)
+OCCXMAIN = $(SCCXMAIN:.c=.o)
+
+PASTIX_LIBS = -lpastix -lpastix_kernels -lpastix_parsec -lparsec -lhwloc -lspm
+PASTIX_LIBS += -lscotch -lscotcherrexit -lopenblas
+PASTIX_LIBS += -lgomp -lstdc++ -lpciaccess -latomic -lexecinfo
+
+LIBS = -L../../lib \
+     $(DIR)/spooles.a \
+     -larpack \
+     $(PASTIX_LIBS) \
+     -lpthread -lm -lz -lc
+
+ccx_2.21_i8: $(OCCXMAIN) ccx_2.21.a
+	./date.pl; $(CC) $(CFLAGS) -c ccx_2.21.c; $(FC) -Wall -O2 -o $@ \
+	$(OCCXMAIN) ccx_2.21.a $(LIBS)
+
+ccx_2.21.a: $(OCCXF) $(OCCXC)
+	ar vr $@ $?

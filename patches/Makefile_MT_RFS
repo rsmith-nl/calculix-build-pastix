@@ -1,0 +1,35 @@
+DIR=../spooles
+WFLAGS = -Wno-unused-variable -Wno-unused-argument -Wno-maybe-uninitialized
+WFLAGS += -Wno-unused-label -Wno-conversion
+
+CFLAGS = -O2 -fopenmp -I$(DIR) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DUSE_MT=1 $(WFLAGS)
+FFLAGS = -O2 -fopenmp $(WFLAGS) -Wno-unused-dummy-argument
+
+CC=gcc13
+FC=gfortran13
+
+.c.o :
+	$(CC) $(CFLAGS) -c $<
+.f.o :
+	$(FC) $(FFLAGS) -c $<
+
+include Makefile.inc
+
+SCCXMAIN = ccx_2.21.c
+
+OCCXF = $(SCCXF:.f=.o)
+OCCXC = $(SCCXC:.c=.o)
+OCCXMAIN = $(SCCXMAIN:.c=.o)
+
+
+
+LIBS = -L../../lib \
+       $(DIR)/spooles.a \
+       -larpack -lopenblas \
+       -lpthread -lm
+
+ccx_2.21_MT: $(OCCXMAIN) ccx_2.21_MT.a
+	./date.pl; $(CC) $(CFLAGS) -c ccx_2.21.c; $(FC) -fopenmp -Wall -O2 -o $@ $(OCCXMAIN) ccx_2.21_MT.a $(LIBS)
+
+ccx_2.21_MT.a: $(OCCXF) $(OCCXC)
+	gcc-ar13 vr $@ $?

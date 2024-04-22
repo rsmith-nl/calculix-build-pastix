@@ -1,0 +1,171 @@
+--- CMakeLists.txt.orig	2021-09-22 17:21:31.000000000 +0200
++++ CMakeLists.txt	2024-03-24 09:46:37.348454000 +0100
+@@ -47,11 +47,11 @@
+ # --------------------
+ SET(CMAKE_EXE_LINKER_FLAGS " -lstdc++ -fopenmp -D_GNU_SOURCE ")
+ SET(CMAKE_C_FLAGS $ENV{SCRIPT_OUT})
+-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -march=native -fopenmp -I/yaprod/cae-opensource/SLE12/packages/cuda-10.1.105/include -D_GNU_SOURCE ")
+-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/yaprod/cae-opensource/SLE12/packages/cuda-10.1.105/targets/x86_64-linux/include -D_GNU_SOURCE ")
++SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -march=native -fopenmp -D_GNU_SOURCE ")
++SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GNU_SOURCE ")
+ SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ")
+ 
+-SET(CMAKE_AR  "gcc-ar")
++SET(CMAKE_AR  "gcc-ar13")
+ #SET(CMAKE_RANLIB "gcc-ranlib")
+ SET(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
+ SET(CMAKE_C_ARCHIVE_FINISH   true)
+@@ -948,153 +948,3 @@
+ 
+ generate_env_file( PROJECTNAME PASTIX )
+ 
+-#############################################################
+-#
+-#      Build documentation
+-#
+-#############################################################
+-add_documented_files(
+-  README.md
+-  docs/doxygen/chapters/eztrace.doxy
+-  kernels/pastix_lowrank.h
+-  kernels/half_prec_utility.h
+-  #
+-  include/pastix.h
+-  include/pastix/api.h
+-  common/api.c
+-  common/get_options.c
+-  common/models.c
+-  common/pastixdata.h
+-  #
+-  graph/graph.h
+-  graph/graph.c
+-  graph/graph_compute_kway.c
+-  graph/graph_compute_projection.c
+-  graph/graph_io.c
+-  graph/graph_isolate.c
+-  graph/graph_prepare.c
+-  graph/graph_symmetrize.c
+-  #
+-  include/pastix/order.h
+-  #order/order_scotch_strats.h TODO: include in developer version
+-  order/order.c
+-  order/order_add_isolate.c
+-  order/order_amalgamate.c
+-  order/order_apply_level_order.c
+-  order/order_check.c
+-  order/order_draw.c
+-  order/order_find_supernodes.c
+-  order/order_grids.c
+-  order/order_io.c
+-  order/order_compute_metis.c
+-  order/order_compute_ptscotch.c
+-  order/order_compute_scotch.c
+-  order/order_supernodes.c
+-  order/pastix_subtask_order.c
+-  #
+-  symbol/fax_csr.h
+-  symbol/symbol.h
+-  symbol/symbol_cost.h  #TODO: include in developer version
+-  symbol/symbol_fax.h   #TODO: include in developer version
+-  symbol/fax_csr.c
+-  symbol/fax_csr_amalgamate.c
+-  symbol/fax_csr_direct.c
+-  symbol/fax_csr_iluk.c
+-  symbol/symbol.c
+-  symbol/symbol_base.c
+-  symbol/symbol_check.c
+-  symbol/symbol_cost.c
+-  symbol/symbol_cost_flops.c
+-  symbol/symbol_cost_perfs.c
+-  symbol/symbol_draw.c
+-  symbol/symbol_expand.c
+-  #symbol/symbol_fax.c Not documented: template file
+-  symbol/symbol_fax_direct.c
+-  symbol/symbol_fax_iluk.c
+-  symbol/symbol_io.c
+-  symbol/symbol_reorder.c
+-  symbol/symbol_reordering.c
+-  symbol/pastix_subtask_reordering.c
+-  symbol/pastix_subtask_symbfact.c
+-  #
+-  blend/blend.h
+-  blend/blendctrl.h
+-  blend/blendctrl.c
+-  blend/cand.h
+-  blend/cand.c
+-  blend/cand_gendot.c
+-  blend/cost.h
+-  blend/cost.c
+-  blend/elimintree.h
+-  blend/elimintree.c
+-  blend/extendVector.h
+-  blend/extendVector.c
+-  blend/extracblk.h
+-  blend/extracblk.c
+-  blend/perf.h
+-  blend/queue.h
+-  blend/queue.c
+-  #
+-  blend/simu.h
+-  blend/simu_timer.h
+-  blend/simu.c
+-  blend/simu_run.c
+-  blend/simu_task.c
+-  #
+-  blend/solver.h
+-  blend/solver.c
+-  blend/solver_backup.c
+-  blend/solver_check.c
+-  blend/solver_copy.c
+-  blend/solver_draw.c
+-  blend/solver_io.c
+-  blend/solver_matrix_gen.c
+-  #
+-  blend/propmap.c
+-  blend/splitsymbol.c
+-  blend/pastix_subtask_blend.c
+-  blend/pastix_task_analyze.c
+-  #
+-  bcsc/bcsc.c
+-  bcsc/bcsc.h
+-  bcsc/bvec.c
+-  bcsc/bvec.h
+-  #
+-  sopalin/coeftab.h
+-  sopalin/coeftab.c
+-  sopalin/schur.c
+-  sopalin/pastix.c
+-  sopalin/pastix_task_sopalin.c
+-  sopalin/pastix_task_solve.c
+-  #
+-  refinement/pastix_task_refine.c
+-  #
+-  example/analyze.c
+-  example/compress.c
+-  example/personal.c
+-  example/reentrant.c
+-  example/refinement.c
+-  example/schur.c
+-  example/simple.c
+-  example/step-by-step.c
+-  )
+-
+-add_documented_files(
+-  DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+-  ${generated_common_sources}
+-  ${generated_bcsc_headers}
+-  ${generated_bcsc_sources}
+-  ${generated_sopalin_headers}
+-  ${generated_sopalin_sources}
+-  ${generated_refinement_sources}
+-)
+-
+-#
+-# Build documentation
+-#
+-add_subdirectory(docs)
+-
+-#-- Add a custom target to run Doxygen when ever the project is built
+-add_custom_target (tags
+-  COMMAND etags ${PASTIX_LIB_SRCS}
+-  DEPENDS ${PASTIX_LIB_SRCS} )

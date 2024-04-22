@@ -1,0 +1,22 @@
+--- sopalin/sopalin_data.h.orig	2021-09-22 17:21:31.000000000 +0200
++++ sopalin/sopalin_data.h	2024-03-23 19:50:35.051179000 +0100
+@@ -17,15 +17,18 @@
+ #define _sopalin_data_h_
+ 
+ #include "models.h"
++#ifdef PASTIX_WITH_CUDA
+ #include <cublas_v2.h>
++#endif
+ 
+ struct sopalin_data_s {
+     SolverMatrix *solvmtx;
+     double      (*cpu_coefs)[PastixKernelLvl1Nbr][8];
+     double      (*gpu_coefs)[PastixKernelLvl1Nbr][8];
++#ifdef PASTIX_WITH_CUDA
+     cublasHandle_t *cublas_handle;
+     cublasStatus_t *cublas_stat;
+-
++#endif
+ };
+ typedef struct sopalin_data_s sopalin_data_t;
+ 

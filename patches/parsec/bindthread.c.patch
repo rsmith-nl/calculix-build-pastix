@@ -1,0 +1,10 @@
+--- parsec/bindthread.c.orig	2024-04-22 02:02:56.256689000 +0200
++++ parsec/bindthread.c	2024-04-22 02:03:45.491788000 +0200
+@@ -33,6 +33,7 @@
+ 
+ int parsec_bindthread(int cpu, int ht)
+ {
++    return cpu;
+     if( -1 == cpu )  /* Don't try binding if not required */
+         return -1;
+ #ifdef MARCEL

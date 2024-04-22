@@ -1,0 +1,10 @@
+--- pastix.c.orig	2024-04-12 01:53:39.015213000 +0200
++++ pastix.c	2024-04-12 01:55:27.969077000 +0200
+@@ -937,7 +937,6 @@
+ void pastix_cleanup(ITG *neq,ITG *symmetryflag){
+ 	if( redo && !firstIter ){
+         if(spm->values == aupastix) spm->values = NULL;
+-        if(spm->values == spm->valuesGPU) spm->valuesGPU = NULL;
+         if(spm->colptr == icolpastix) spm->colptr = NULL;
+         if(spm->rowptr == irowpastix) spm->rowptr = NULL;
+ 		spmExit( spm );

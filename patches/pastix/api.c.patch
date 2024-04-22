@@ -1,0 +1,38 @@
+--- common/api.c.orig	2024-03-23 20:25:19.266571000 +0100
++++ common/api.c	2024-03-23 20:28:03.656449000 +0100
+@@ -613,11 +613,11 @@
+ 		cudaStreamCreate(&(pastix->streamGPU));
+ #endif
+ 	}
+-	else
+-	{
+-		pastix->cublas_handle = NULL;
+-		pastix->cublas_stat = NULL;
+-	}
++//	else
++//	{
++//		pastix->cublas_handle = NULL;
++//		pastix->cublas_stat = NULL;
++//	}
+    // *(pastix->cublas_stat) = cublasSetMathMode(*(pastix->cublas_handle), CUBLAS_TENSOR_OP_MATH);
+ 
+     pastix->iparm = iparm;
+@@ -779,16 +779,16 @@
+     ischedFinalize( pastix->isched );
+     
+     
++#ifdef PASTIX_WITH_CUDA
+ 	if( pastix->cublas_handle != NULL){
+ 		
+-#ifdef PASTIX_WITH_CUDA
+ 		cublasDestroy(*(pastix->cublas_handle));
+ 		
+ 		free(pastix->cublas_handle);
+ 		free(pastix->cublas_stat);
+-#endif
+ 		
+ 	}
++#endif
+ 
+     if ( pastix->graph != NULL )
+     {

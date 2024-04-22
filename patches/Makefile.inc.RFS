@@ -1,0 +1,24 @@
+EXE		=
+LIB		= .a
+OBJ		= .o
+
+MAKE		= gmake
+AR		= ar
+ARFLAGS		= -ruv
+CAT		= cat
+CCS		= gcc13
+CCP		= mpicc
+CCD		= gcc13
+CFLAGS		+= -std=c99 -fPIC -DCOMMON_FILE_COMPRESS_GZ -DCOMMON_PTHREAD
+CFLAGS		+= -DCOMMON_RANDOM_FIXED_SEED -DSCOTCH_RENAME -DSCOTCH_RENAME_PARSER
+CFLAGS		+= -DSCOTCH_PTHREAD -Drestrict=__restrict -DIDXSIZE64
+CFLAGS		+= -DINTSIZE64 -DSCOTCH_PTHREAD_NUMBER=4 -DCOMMON_PTHREAD_FILE
+CLIBFLAGS	=
+LDFLAGS		+= -lz -lm -lpthread
+CP		= cp
+LEX		= flex -Pscotchyy -olex.yy.c
+LN		= ln
+MKDIR		= mkdir -p
+MV		= mv
+RANLIB		= ranlib
+YACC		= bison -pscotchyy -y -b y

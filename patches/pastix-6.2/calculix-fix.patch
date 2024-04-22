@@ -1,0 +1,159 @@
+diff -urN pastix-6.2.0.orig/common/api.c pastix-6.2.0/common/api.c
+--- pastix-6.2.0.orig/common/api.c	2021-04-18 10:06:57.965538500 +0200
++++ pastix-6.2.0/common/api.c	2021-04-18 10:21:20.753663200 +0200
+@@ -508,6 +508,7 @@
+     iparm[IPARM_FLOAT]      = -1;
+     iparm[IPARM_MTX_TYPE]   = -1;
+     iparm[IPARM_DOF_NBR]    = 1;
++    iparm[IPARM_REUSE_LU]   = 0;
+ 
+     dparm[DPARM_FILL_IN]            =  0.;
+     dparm[DPARM_EPSILON_REFINEMENT] = -1.;
+@@ -617,6 +618,12 @@
+     (void)comm;
+ }
+ 
++void pastixAllocMemory(void** ptr, size_t size, pastix_int_t gpu){
++	if(*ptr != NULL)
++		memFreeHost((*ptr), gpu);
++	MALLOC_HOST((*ptr), size, char, gpu);
++}
++
+ /**
+  *******************************************************************************
+  *
+@@ -788,6 +795,22 @@
+ 
+     pastix->bcsc       = NULL;
+     pastix->solvmatr   = NULL;
++        if(iparm[IPARM_REUSE_LU] != 1){
++		if(iparm[IPARM_REUSE_LU] == 2){
++			memFreeHost(pastix->L, iparm[IPARM_GPU_NBR]);
++			memFreeHost(pastix->U, iparm[IPARM_GPU_NBR]);
++			memFreeHost(pastix->colptrPERM, iparm[IPARM_GPU_NBR]);
++			memFreeHost(pastix->rowptrPERM, iparm[IPARM_GPU_NBR]);
++		}
++		pastix->L = NULL;
++		pastix->U = NULL;
++		
++		
++		pastix->nBound = 0;
++		pastix->nnzBound = 0;
++		pastix->colptrPERM   = NULL;
++		pastix->rowptrPERM   = NULL;
++	}
+ 
+     pastix->cpu_models = NULL;
+     pastix->gpu_models = NULL;
+diff -urN pastix-6.2.0.orig/common/memory.h pastix-6.2.0/common/memory.h
+--- pastix-6.2.0.orig/common/memory.h	2021-04-18 10:06:57.991540000 +0200
++++ pastix-6.2.0/common/memory.h	2021-04-18 11:54:17.407490800 +0200
+@@ -62,6 +62,13 @@
+ #  define memAlloc(size) malloc(size)
+ #endif
+ 
++#define memFreeHost(ptr, gpu) free((void*)(ptr))
++#define memFreeHost_null(ptr, gpu) do			\
++	{					\
++	    memFree( ptr );			\
++	    (ptr) = NULL;			\
++	} while(0)
++
+ #define memFree(ptr) free((void*)(ptr))
+ #define memFree_null(ptr) do			\
+ 	{					\
+@@ -73,6 +80,11 @@
+     do {                                                        \
+         ptr = (type*)memAlloc((size) * sizeof(type)) ;          \
+     } while(0)
++    
++#define MALLOC_HOST(ptr, size, type, gpu)                          \
++    do {                                                        \
++        ptr = (type*)memAlloc((size) * sizeof(type)) ;          \
++    } while(0)
+ 
+ #define MALLOC_EXTERN(ptr, size, type)		\
+     ptr = (type*)malloc((size) * sizeof(type))
+diff -urN pastix-6.2.0.orig/common/pastixdata.h pastix-6.2.0/common/pastixdata.h
+--- pastix-6.2.0.orig/common/pastixdata.h	2021-04-18 10:06:57.996540300 +0200
++++ pastix-6.2.0/common/pastixdata.h	2021-04-18 11:06:15.392933000 +0200
+@@ -92,7 +92,18 @@
+ 
+     char            *dir_global;         /**< Unique directory name to store output files                         */
+     char            *dir_local;          /**< Unique directory name to store output specific to a MPI process     */
++    
++    char            *dirtemp;            /**< Unique directory name to store output files                         */
+ 
++	void 			*L;
++	void 			*U;
++	pastix_int_t	 LUbufferSize;
++	    
++    spm_int_t      nBound;
++    spm_int_t	   nnzBound;
++    spm_int_t     *colptrPERM;  /**< List of indirections to rows for each vertex [+baseval]        */
++    spm_int_t     *rowptrPERM;  /**< List of edges for each vertex [+baseval]    
++    
+     /* Backup for old pastix interface */
+     void            *b;
+     void            *x0;
+diff -urN pastix-6.2.0.orig/include/pastix/api.h pastix-6.2.0/include/pastix/api.h
+--- pastix-6.2.0.orig/include/pastix/api.h	2021-04-18 10:06:58.066544300 +0200
++++ pastix-6.2.0/include/pastix/api.h	2021-04-18 10:11:08.405862900 +0200
+@@ -137,6 +137,7 @@
+     IPARM_FLOAT,                 /**< Indicate the arithmetics                                       Default: PastixDouble              IN  */
+     IPARM_MTX_TYPE,              /**< Indicate matrix format                                         Default: -1                        IN  */
+     IPARM_DOF_NBR,               /**< Degree of freedom per node                                     Default: 1                         IN  */
++    IPARM_REUSE_LU,
+     IPARM_SIZE
+ } pastix_iparm_t;
+ 
+diff -urN pastix-6.2.0.orig/include/pastix.h pastix-6.2.0/include/pastix.h
+--- pastix-6.2.0.orig/include/pastix.h	2021-04-18 10:06:58.064544200 +0200
++++ pastix-6.2.0/include/pastix.h	2021-04-18 10:20:27.932642000 +0200
+@@ -16,7 +16,7 @@
+  * @author Pierre Ramet
+  * @author Xavier Lacoste
+  * @author Theophile Terraz
+- * @author Tony Delarue
++ * @author Tony Delaruef
+  * @date 2021-03-05
+  *
+  **/
+@@ -77,6 +77,9 @@
+                              pastix_int_t   *iparm,
+                              double         *dparm,
+                              const int      *bindtab );
++			     
++void pastixAllocMemory(void** ptr, size_t size, pastix_int_t gpu);
++
+ void pastixFinalize ( pastix_data_t **pastix_data );
+ 
+ /*
+@@ -179,4 +182,6 @@
+ 
+ END_C_DECLS
+ 
++void pastixResetSteps(pastix_data_t *pastix_data);
++
+ #endif /* _pastix_h_ */
+diff -urN pastix-6.2.0.orig/sopalin/pastix_task_sopalin.c pastix-6.2.0/sopalin/pastix_task_sopalin.c
+--- pastix-6.2.0.orig/sopalin/pastix_task_sopalin.c	2021-04-18 10:06:58.330559400 +0200
++++ pastix-6.2.0/sopalin/pastix_task_sopalin.c	2021-04-18 10:14:46.082313300 +0200
+@@ -628,3 +628,17 @@
+ 
+     return EXIT_SUCCESS;
+ }
++
++void pastixResetSteps(pastix_data_t *pastix_data){
++
++    pastix_data->steps |= ( STEP_INIT |
++							STEP_ORDERING |
++                            STEP_SYMBFACT |
++                            STEP_ANALYSE );
++                            
++	pastix_data->steps &= ~( STEP_CSC2BCSC |
++							 STEP_BCSC2CTAB |
++                             STEP_SOLVE |
++                             STEP_REFINE |
++                             STEP_NUMFACT);
++}
