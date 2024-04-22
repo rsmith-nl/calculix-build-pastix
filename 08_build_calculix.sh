@@ -4,12 +4,13 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T14:21:00+0100
-# Last modified: 2024-04-14T18:28:35+0200
+# Last modified: 2024-04-22T17:12:47+0200
 
 set -e
 
 # Unpack calculix
 cd source
+rm -rf ccx CalculiX
 tar xf ../distfiles/ccx_2.21.src.tar.bz2
 mv CalculiX/ccx_2.21/src ccx
 rm -rf CalculiX
