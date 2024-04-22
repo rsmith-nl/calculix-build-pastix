@@ -1,10 +1,12 @@
 PASTIX_INCLUDE = ../../include/
 DIR=../spooles
 
-WFLAGS = -Wno-unused-variable -Wno-unused-argument -Wno-maybe-uninitialized
+WFLAGS = -Wno-unused-variable -Wno-unused-parameter -Wno-maybe-uninitialized
 WFLAGS += -Wno-unused-label -Wno-conversion
 CFLAGS = -Wall -O2 -fopenmp -fpic -I$(DIR) -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DINTSIZE64 -DPASTIX -DPASTIX_FP32 $(WFLAGS)
-FFLAGS = -Wall -O2 -fopenmp -fpic -fdefault-integer-8 $(WFLAGS) -Wno-unused-dummy-argument
+FFLAGS = -Wall -O2 -fopenmp -fpic -fdefault-integer-8 -Wno-unused-dummy-argument
+FFLAGS += -ffixed-form -Wno-do-subscript -Wno-maybe-uninitialized -Wno-unused-variable
+FFLAGS += -Wno-unused-label -Wno-conversion -std=legacy
 
 CC=gcc13
 FC=gfortran13
