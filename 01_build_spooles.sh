@@ -5,10 +5,11 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-02-18T16:30:04+0100
-# Last modified: 2024-03-24T15:05:45+0100
+# Last modified: 2024-04-23T21:31:54+0200
 
 set -e
 
+rm -rf source/spooles
 mkdir -p source/spooles
 cd source/spooles
 tar xf ../../distfiles/spooles.2.2.tgz

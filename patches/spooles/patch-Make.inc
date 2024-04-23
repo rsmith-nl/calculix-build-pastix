@@ -1,5 +1,5 @@
 --- Make.inc.orig	1999-01-18 22:48:55.000000000 +0100
-+++ Make.inc	2024-03-24 01:04:57.444024000 +0100
++++ Make.inc	2024-04-23 21:39:42.056995000 +0200
 @@ -12,7 +12,8 @@
  # for solaris
  #
@@ -18,13 +18,14 @@
 +# OPTLEVEL = -O
  # OPTLEVEL = -xO5 -v
 -# OPTLEVEL = -O3
-+OPTLEVEL = -O3
++OPTLEVEL = -O2
  # OPTLEVEL = -O4
  # CFLAGS = -Wall -g
  # CFLAGS = -Wall -pg
- # CFLAGS = $(OPTLEVEL) -D_POSIX_C_SOURCE=199506L
+-# CFLAGS = $(OPTLEVEL) -D_POSIX_C_SOURCE=199506L
 -  CFLAGS = $(OPTLEVEL)
-+CFLAGS += $(OPTLEVEL)
++CFLAGS = $(OPTLEVEL) -pipe
++# CFLAGS += $(OPTLEVEL)
  # CFLAGS = -Wall $(OPTLEVEL)
  #
  #----------------------------------------
@@ -33,7 +34,7 @@
  # THREAD_LIBS =
  # THREAD_LIBS = -D_REENTRANT=199506L -lpthread
 -  THREAD_LIBS = -D_POSIX_C_SOURCE=199506L -lpthread
-+THREAD_LIBS = -D_POSIX_C_SOURCE=199506L -lpthread
++THREAD_LIBS = -lpthread
  # THREAD_LIBS = -lpthread
  #
  #---------------------------------------------------------------------
