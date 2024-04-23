@@ -1,9 +1,7 @@
 DIR=../spooles
-WFLAGS = -Wno-unused-variable -Wno-unused-argument -Wno-maybe-uninitialized
-WFLAGS += -Wno-unused-label -Wno-conversion
 
-CFLAGS = -O2 -fopenmp -I$(DIR) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DUSE_MT=1 $(WFLAGS)
-FFLAGS = -O2 -fopenmp $(WFLAGS) -Wno-unused-dummy-argument
+CFLAGS = -O2 -fopenmp -I$(DIR) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DUSE_MT=1
+FFLAGS = -O2 -fopenmp -ffixed-form -std=legacy
 
 CC=gcc13
 FC=gfortran13
