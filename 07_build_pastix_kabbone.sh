@@ -4,39 +4,23 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:42:32+0100
-# Last modified: 2024-04-22T19:50:29+0200
+# Last modified: 2024-04-24T12:37:00+0200
 
 set -e
 
 cd source
 rm -rf pastix
 tar xf ../distfiles/PaStiX4CalculiX-2.17_cudaless.tar.gz
-mv PaStiX4CalculiX-2.17_cudaless pastix
-cd pastix
-
-#sed -i '.orig' -e '/Bad replacement pair/d' -e '/import imp;/d' cmake_modules/morse_cmake/modules/precision_generator/*.py spm/cmake_modules/morse_cmake/modules/precision_generator/*.py
+mv PaStiX4CalculiX-2.17_cudaless pastix4calculix
+cd pastix4calculix
 
 patch < ../../patches/pastix/kabbone-CMakeLists.txt.patch
 patch < ../../patches/pastix/spm.c.patch
 patch < ../../patches/pastix/bcsc_z.h.patch
-#patch < ../../patches/pastix/api.c.patch
-#patch < ../../patches/pastix/bcsc_zinit.c.patch
-#patch < ../../patches/pastix/bvec_zcompute.c.patch
-#patch < ../../patches/pastix/bvec.c.patch
-#patch < ../../patches/pastix/coeftab.h.patch
-#patch < ../../patches/pastix/cpu_z_spmv.h.patch
-#patch < ../../patches/pastix/gpu_z_spmv.h.patch
-#patch < ../../patches/pastix/pastix_task_refine.c.patch
-#patch < ../../patches/pastix/pastix_task_solve.c.patch
-#patch < ../../patches/pastix/pastix_task_sopalin.c.patch
-#patch < ../../patches/pastix/patixdata.h.patch
-#patch < ../../patches/pastix/sopalin_data.h.patch
-#patch < ../../patches/pastix/z_refine_gmres_gpu.c.patch
-#sed -i '.orig' -e '/cublasHandle_t/d' -e '/cublasStatus_t/d' -e '/cublas_v2\.h/d' sopalin/parsec/*.jdf
 
-
-# Requires Python 2.7.
-
+# This build *requires* Python 2.7.
+# The code generation scripts in this version of PaStiX do *not* work with
+# python 3!
 mkdir build
 cd build
 env PKG_CONFIG_PATH=/zstorage/home/rsmith/tmp/src/calculix-build/lib/pkgconfig \
@@ -57,4 +41,4 @@ cmake   -Wno-dev \
 gmake -j4
 gmake install
 cd ../..
-#rm -rf pastix
+rm -rf pastix4calculix
