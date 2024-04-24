@@ -7,8 +7,7 @@ supposed to be really fast, I wanted to build the calculix solver `ccx` with
 the PaStiX solver library.
 
 My computers do not have an NVIDIA graphics cards. Basically because NVIDIA
-doesn't support them on FreeBSD.
-
+doesn't support them on FreeBSD. So I needed to build PaStiX without CUDA.
 This process turned out to be somewhat complicated, that is why I'm
 documenting it here.
 
@@ -24,24 +23,33 @@ https://github.com/Kabbone/PaStiX4CalculiX/tree/cudaless.
 So that is the version I'm using.
 
 All the distribution files of known working versions are stored in
-`distfiles`.
+`distfiles` directory.
+The `patches` directory contains some patches to fix warnings and errors.
+The patches for spooles are mostly from the FreeBSD ports tree, although I've
+added a couple of my own.
+One of the patches for `ccx` was borrowed from the Arch Linux repo.
+Most of the other patches are my work.
 
+## License
 
-## Prequisites
+The files in `distfiles` are under their respective licences.
+The materials that I wrote are hereby placed in the public domain.
 
-The first prequisite is a UNIX-like operating system.
+## Prerequisites
+
+The first prerequisite is a UNIX-like operating system.
 These instructions are geared towards building CalculiX on a FreeBSD UNIX
 workstation.
 They can probably be used with some modifications on a Linux machine.
 Personally I don't use ms-windows, and since that OS lacks basically all the
-tools needed, these scripts won't help you.
+tools needed, these scripts won't work there as-is.
 
-The second prequisite is a development environment.
+The second prerequisite is a development environment.
 More specifically;
 
 * GNU make (called `gmake` on FreeBSD, usually `make` on Linux)
-* A Fortran compiler. Here `gfortran13` is used. (On Linux it's probably just
-    called `gfortran`)
+* A Fortran compiler. Here GNU fortran in the form of `gfortran13` is used.
+  (On Linux it's probably just called `gfortran`)
 * A C compiler. Here `gcc13` is used. (or `gcc` on Linux)
 * GNU autotools/automake/libtool
 * cmake
@@ -54,7 +62,7 @@ More specifically;
 
 The build is done in steps, each captured in a shell script.
 
-It is important that the shell scripts are called from the directory they
+It is important that the shell scripts are started from the directory they
 reside in!
 
 First step is to clean up, to remove any remains from a previous build.
@@ -101,7 +109,7 @@ sh 03_build_arpack.sh | & tee logfiles/arpack.log
 ```
 
 Then hwloc.
-For me it was necessary to expliciy add `libexecinfo` and `libpciaccess` to
+For me it was necessary to explicitly add `libexecinfo` and `libpciaccess` to
 the configuration. YMMV.
 
 ```
