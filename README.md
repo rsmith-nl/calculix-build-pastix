@@ -7,7 +7,7 @@ supposed to be really fast, I wanted to build the calculix solver `ccx` with
 the PaStiX solver library.
 
 My computers do not have an NVIDIA graphics cards. Basically because NVIDIA
-doesn't support them on FreeBSD. So I needed to build PaStiX without CUDA.
+doesn't offer CUDA on FreeBSD. So I needed to build PaStiX without CUDA.
 This process turned out to be somewhat complicated, that is why I'm
 documenting it here.
 
