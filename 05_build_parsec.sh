@@ -4,9 +4,10 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:42:10+0100
-# Last modified: 2024-04-22T02:06:09+0200
+# Last modified: 2024-04-24T14:30:09+0200
 
 set -e
+PREFIX=`pwd`
 
 cd source
 rm -rf *parsec*
@@ -33,16 +34,11 @@ cmake \
     -DCMAKE_C_COMPILER=gcc13 \
     -DCMAKE_Fortran_COMPILER=gfortran13 \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/zstorage/home/rsmith/tmp/src/calculix-build \
+    -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DPARSEC_GPU_WITH_CUDA=OFF \
-    -DHWLOC_DIR=/zstorage/home/rsmith/tmp/src/calculix-build \
+    -DHWLOC_DIR=${PREFIX} \
     ..
 
-#Configuration flags:
-#  CMAKE_C_FLAGS          =  -m64 -std=c1x
-#  CMAKE_C_LDFLAGS        =  -m64
-#  CMAKE_EXE_LINKER_FLAGS = 
-#  EXTRA_LIBS             = -lexecinfo -lpciaccess;-latomic;-lpthread;/home/rsmith/tmp/src/calculix-build/lib/libhwloc.a;-L/usr/local/lib/gcc13/gcc/x86_64-portbld-freebsd14.0/12.2.0;-L/usr/local/x86_64-portbld-freebsd14.0/lib;-L/usr/local/lib/gcc13;gfortran;m;gcc;gcc_s;quadmath;m;gcc;gcc_s;c;gcc;gcc_s
 
 gmake -j4
 # Disable Python extension.

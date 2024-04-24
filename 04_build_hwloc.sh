@@ -4,9 +4,10 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:41:52+0100
-# Last modified: 2024-03-24T15:06:04+0100
+# Last modified: 2024-04-24T14:23:47+0200
 
 set -e
+PREFIX=`pwd`
 
 cd source
 rm -rf hwloc*
@@ -16,7 +17,7 @@ mv hwloc-2.10.0 hwloc
 cd hwloc
 env CC=gcc13 CXX=g++13 LIBS='-lexecinfo -lpciaccess'\
     ./configure \
-    --prefix=/zstorage/home/rsmith/tmp/src/calculix-build \
+    --prefix=${PREFIX} \
     --disable-shared --enable-static \
     --disable-readme --disable-picky --disable-cairo \
     --disable-libxml2 --disable-levelzero

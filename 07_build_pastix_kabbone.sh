@@ -4,9 +4,10 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:42:32+0100
-# Last modified: 2024-04-24T12:37:00+0200
+# Last modified: 2024-04-24T14:56:06+0200
 
 set -e
+PREFIX=`pwd`
 
 cd source
 rm -rf pastix
@@ -23,15 +24,15 @@ patch < ../../patches/pastix/bcsc_z.h.patch
 # python 3!
 mkdir build
 cd build
-env PKG_CONFIG_PATH=/zstorage/home/rsmith/tmp/src/calculix-build/lib/pkgconfig \
+env PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig \
 cmake   -Wno-dev \
         -DPYTHON_EXECUTABLE=/usr/local/bin/python2.7 \
         -DPASTIX_WITH_CUDA=OFF \
-        -DCMAKE_PREFIX_PATH=/zstorage/home/rsmith/tmp/src/calculix-build \
-        -DCMAKE_INSTALL_PREFIX=/zstorage/home/rsmith/tmp/src/calculix-build \
+        -DCMAKE_PREFIX_PATH=${PREFIX} \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
         -DCMAKE_BUILD_TYPE=Release \
         -DPASTIX_WITH_PARSEC=ON \
-        -DSCOTCH_DIR=/zstorage/home/rsmith/tmp/src/calculix-build \
+        -DSCOTCH_DIR=${PREFIX} \
         -DPASTIX_ORDERING_SCOTCH=ON \
         -DCMAKE_C_COMPILER=gcc13 \
         -DCMAKE_CXX_COMPILER=g++13 \
