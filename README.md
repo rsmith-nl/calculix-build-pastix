@@ -6,7 +6,7 @@ Because of the limitations of the spooles solver library, and because it is
 supposed to be really fast, I wanted to build the calculix solver `ccx` with
 the PaStiX solver library.
 
-Since I prefer open-source graphics drivers, my computers do not have NVIDIA
+Since I prefer free software graphics drivers, my computers do not have NVIDIA
 graphics cards.
 Additionally, NVIDIA doesn't offer CUDA on FreeBSD.
 
