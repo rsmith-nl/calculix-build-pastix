@@ -1,4 +1,4 @@
-# Building CalculiX (with PaStiX without CUDA) on FreeBSD
+# Building CalculiX with PaStiX without CUDA on FreeBSD
 
 ## Introduction
 
@@ -111,14 +111,7 @@ Next is building ARPACK.
 sh 03_build_arpack.sh | & tee logfiles/arpack.log
 ```
 
-If you just want to build ccx just with SPOOLES and ARPACK, you can now run
-the following command and then the build is finished.
-
-```
-sh 08a_build_calculix_pastix.sh | & tee logfiles/calculix.log
-```
-
-To continue the build with PaStix, now is the time to build hwloc.
+Then hwloc.
 For me it was necessary to explicitly add `libexecinfo` and `libpciaccess` to
 the configuration. YMMV.
 
@@ -159,7 +152,7 @@ The script installs this version as `ccx_i8` in `~/.local/bin`.
 Comment this out or change it if you want to put it somewhere else.
 
 ```
-sh 08a_build_calculix_pastix.sh | & tee logfiles/calculix.log
+sh 08_build_calculix.sh | & tee logfiles/calculix.log
 ```
 
 That's it.
