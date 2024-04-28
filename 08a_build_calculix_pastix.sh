@@ -1,10 +1,10 @@
 #!/bin/sh
-# file: 08_build_calculix.sh
+# file: 08a_build_calculix_pastix.sh
 # vim:fileencoding=utf-8:ft=sh
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T14:21:00+0100
-# Last modified: 2024-04-24T15:37:37+0200
+# Last modified: 2024-04-28T12:08:21+0200
 
 set -e
 PREFIX=`pwd`
