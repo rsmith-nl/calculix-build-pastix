@@ -4,7 +4,7 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:41:52+0100
-# Last modified: 2024-04-24T14:23:47+0200
+# Last modified: 2024-06-07T13:03:29+0200
 
 set -e
 PREFIX=`pwd`
@@ -15,7 +15,7 @@ tar xf ../distfiles/hwloc-2.10.0.tar.bz2
 mv hwloc-2.10.0 hwloc
 
 cd hwloc
-env CC=gcc13 CXX=g++13 LIBS='-lexecinfo -lpciaccess'\
+env CC=gcc13 CXX=g++13 LIBS='-lexecinfo -lpciaccess -lm'\
     ./configure \
     --prefix=${PREFIX} \
     --disable-shared --enable-static \
