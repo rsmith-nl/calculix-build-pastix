@@ -65,6 +65,10 @@ More specifically;
 
 The build is done in steps, each captured in a shell script.
 
+The scripts have to be run in the order indicated by their numbers.
+And you can only proceed to the next script when the previous script finished
+without errors.
+
 It is important that the shell scripts are started from the directory they
 reside in!
 
