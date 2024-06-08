@@ -57,6 +57,8 @@ More specifically;
 * A Fortran compiler. Here GNU fortran in the form of `gfortran13` is used.
   (On Linux it's probably just called `gfortran`)
 * A C compiler. Here `gcc13` is used. (or `gcc` on Linux)
+* libpciaccess
+* libexecinfo
 * GNU autotools/automake/libtool
 * cmake
 * bison
