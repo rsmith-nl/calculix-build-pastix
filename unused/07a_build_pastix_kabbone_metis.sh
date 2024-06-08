@@ -16,9 +16,9 @@ cd pastix
 
 #sed -i '.orig' -e '/Bad replacement pair/d' -e '/import imp;/d' cmake_modules/morse_cmake/modules/precision_generator/*.py spm/cmake_modules/morse_cmake/modules/precision_generator/*.py
 
-patch < ../../patches/pastix/kabbone-CMakeLists.txt.patch
-patch < ../../patches/pastix/spm.c.patch
-patch < ../../patches/pastix/bcsc_z.h.patch
+patch -p0 < ../../patches/pastix/kabbone-CMakeLists.txt.patch
+patch -p0 < ../../patches/pastix/spm.c.patch
+patch -p0 < ../../patches/pastix/bcsc_z.h.patch
 #patch < ../../patches/pastix/api.c.patch
 #patch < ../../patches/pastix/bcsc_zinit.c.patch
 #patch < ../../patches/pastix/bvec_zcompute.c.patch

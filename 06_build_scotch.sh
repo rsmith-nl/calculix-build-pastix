@@ -19,4 +19,4 @@ gmake libscotch
 gmake esmumps
 env prefix=${PREFIX} gmake install
 cd ../..
-rm -rf scotch
+# rm -rf scotch

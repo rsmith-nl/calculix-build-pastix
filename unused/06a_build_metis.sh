@@ -14,10 +14,10 @@ tar xf ../distfiles/metis-5.1.0.tar.gz
 mv metis-5.1.0 metis
 cd metis
 
-patch < ../../patches/metis/patch-CMakeLists.txt
-patch < ../../patches/metis/patch-libmetis__CMakeLists.txt
-patch < ../../patches/metis/patch-programs_CMakeLists.txt
-patch < ../../patches/metis/patch-include-metis.h
+patch -p0 < ../../patches/metis/patch-CMakeLists.txt
+patch -p0 < ../../patches/metis/patch-libmetis__CMakeLists.txt
+patch -p0 < ../../patches/metis/patch-programs_CMakeLists.txt
+patch -p0 < ../../patches/metis/patch-include-metis.h
 gmake config \
     cc=gcc13 prefix=/zstorage/home/rsmith/tmp/src/calculix-build \
     LDFLAGS=-lexecinfo

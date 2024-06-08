@@ -15,9 +15,9 @@ tar xf ../distfiles/PaStiX4CalculiX-2.17_cudaless.tar.gz
 mv PaStiX4CalculiX-2.17_cudaless pastix4calculix
 cd pastix4calculix
 
-patch < ../../patches/pastix/kabbone-CMakeLists.txt.patch
-patch < ../../patches/pastix/spm.c.patch
-patch < ../../patches/pastix/bcsc_z.h.patch
+patch -p0 < ../../patches/pastix/kabbone-CMakeLists.txt.patch
+patch -p0 < ../../patches/pastix/spm.c.patch
+patch -p0 < ../../patches/pastix/bcsc_z.h.patch
 
 # This build *requires* Python 2.7.
 # The code generation scripts in this version of PaStiX do *not* work with

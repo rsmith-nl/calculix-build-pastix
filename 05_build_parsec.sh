@@ -15,11 +15,11 @@ tar xf ../distfiles/mfaverge-parsec-b580d208094e.tar.gz
 mv mfaverge-parsec-b580d208094e parsec
 cd parsec
 # Fix location of unistd.h
-sed -i '.orig' -e 's/linux\/unistd.h/unistd.h/' parsec/scheduling.c
+sed -i='.orig' -e 's/linux\/unistd.h/unistd.h/' parsec/scheduling.c
 # Fix missing alloca.h
-sed -i '.orig' -e 's/alloca\.h/stdlib.h/' parsec/interfaces/ptg/ptg-compiler/jdf2c.c
+sed -i='.orig' -e 's/alloca\.h/stdlib.h/' parsec/interfaces/ptg/ptg-compiler/jdf2c.c
 
-patch < ../../patches/parsec/bindthread.c.patch
+patch -p0 < ../../patches/parsec/bindthread.c.patch
 
 mkdir build
 cd build
@@ -42,7 +42,7 @@ cmake \
 
 gmake -j4
 # Disable Python extension.
-sed -i '.orig' -e '/include.*python/d' tools/profiling/cmake_install.cmake
+sed -i='.orig' -e '/include.*python/d' tools/profiling/cmake_install.cmake
 gmake install
 cd ../../
-rm -rf parsec
+# rm -rf parsec

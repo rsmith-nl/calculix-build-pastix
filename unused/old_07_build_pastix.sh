@@ -16,22 +16,22 @@ cd PaStiX
 
 sed -i '.orig' -e '/Bad replacement pair/d' -e '/import imp;/d' cmake_modules/morse_cmake/modules/precision_generator/*.py spm/cmake_modules/morse_cmake/modules/precision_generator/*.py
 
-patch < ../../patches/pastix/api.c.patch
-patch < ../../patches/pastix/bcsc_z.h.patch
-patch < ../../patches/pastix/bcsc_zinit.c.patch
-patch < ../../patches/pastix/bvec_zcompute.c.patch
-patch < ../../patches/pastix/bvec.c.patch
-patch < ../../patches/pastix/CMakeLists.txt.patch
-patch < ../../patches/pastix/coeftab.h.patch
-patch < ../../patches/pastix/cpu_z_spmv.h.patch
-patch < ../../patches/pastix/gpu_z_spmv.h.patch
-patch < ../../patches/pastix/pastix_task_refine.c.patch
-patch < ../../patches/pastix/pastix_task_solve.c.patch
-patch < ../../patches/pastix/pastix_task_sopalin.c.patch
-patch < ../../patches/pastix/patixdata.h.patch
-patch < ../../patches/pastix/sopalin_data.h.patch
-patch < ../../patches/pastix/spm.c.patch
-patch < ../../patches/pastix/z_refine_gmres_gpu.c.patch
+patch -p0 < ../../patches/pastix/api.c.patch
+patch -p0 < ../../patches/pastix/bcsc_z.h.patch
+patch -p0 < ../../patches/pastix/bcsc_zinit.c.patch
+patch -p0 < ../../patches/pastix/bvec_zcompute.c.patch
+patch -p0 < ../../patches/pastix/bvec.c.patch
+patch -p0 < ../../patches/pastix/CMakeLists.txt.patch
+patch -p0 < ../../patches/pastix/coeftab.h.patch
+patch -p0 < ../../patches/pastix/cpu_z_spmv.h.patch
+patch -p0 < ../../patches/pastix/gpu_z_spmv.h.patch
+patch -p0 < ../../patches/pastix/pastix_task_refine.c.patch
+patch -p0 < ../../patches/pastix/pastix_task_solve.c.patch
+patch -p0 < ../../patches/pastix/pastix_task_sopalin.c.patch
+patch -p0 < ../../patches/pastix/patixdata.h.patch
+patch -p0 < ../../patches/pastix/sopalin_data.h.patch
+patch -p0 < ../../patches/pastix/spm.c.patch
+patch -p0 < ../../patches/pastix/z_refine_gmres_gpu.c.patch
 sed -i '.orig' -e '/cublasHandle_t/d' -e '/cublasStatus_t/d' -e '/cublas_v2\.h/d' sopalin/parsec/*.jdf
 
 mkdir build
