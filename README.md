@@ -43,9 +43,12 @@ The materials that I wrote are hereby placed in the public domain.
 The first prerequisite is a UNIX-like operating system.
 These instructions are geared towards building CalculiX on a FreeBSD UNIX
 workstation.
-They can probably be used with some modifications on a Linux machine.
-Personally I don't use ms-windows, and since that OS lacks basically all the
-tools needed, these scripts won't work there as-is.
+
+**_NOTE:_**
+These scripts will *not* work on Linux without modifications!
+The GNU versions of e.q. `sed` and `patch` take slightly different arguments,
+and GNU make is generally installed as `make`.
+Please fork and adapt this repository if you want to use it on Linux.
 
 The second prerequisite is a development environment.
 More specifically;
