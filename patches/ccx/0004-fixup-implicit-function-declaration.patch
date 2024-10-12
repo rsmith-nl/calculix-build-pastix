@@ -1,12 +1,8 @@
-Description: Fixup implicit declaration warning
-Author: Nilesh Patra <nilesh@debian.org>
-Forwarded: https://github.com/Dhondtguido/CalculiX/pull/77
-Last-Update: 2024-03-15
---- a/ccx_2.21/src/CalculiX.h
-+++ b/ccx_2.21/src/CalculiX.h
-@@ -1637,6 +1637,20 @@
-                 ITG *nodedesi,ITG *ndesi,char *objectset,double *xdesi,
- 		double *distmin,double *feasdir);
+--- CalculiX.h.orig	2024-08-05 19:13:20.795702931 +0200
++++ CalculiX.h	2024-10-12 18:56:54.812466000 +0200
+@@ -1671,6 +1671,20 @@
+ 		       ITG *ipoface,ITG *nodface,ITG *kon,ITG *iregion,
+ 		       ITG *isolver,ITG *nsurfs);
  
 +void FORTRAN(filtermatrix,(double *au,ITG *jq,ITG *irow,ITG *icol,
 +		ITG *ndesi,ITG *nodedesi,double *filterrad,double *co,
@@ -25,7 +21,7 @@ Last-Update: 2024-03-15
  void *filtermt(ITG *i);
  
  void *filter_forwardmt(ITG *i);
-@@ -3386,6 +3400,18 @@
+@@ -3485,6 +3499,18 @@
  		   double *dgdxglob,double *extnor,double *g0);
  
  void *packagingmt(ITG *i);

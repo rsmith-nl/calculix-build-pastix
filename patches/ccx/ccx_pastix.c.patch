@@ -1,6 +1,6 @@
---- pastix.c.orig	2024-04-12 01:53:39.015213000 +0200
-+++ pastix.c	2024-04-12 01:55:27.969077000 +0200
-@@ -937,7 +937,6 @@
+--- pastix.c.orig	2024-08-05 19:13:20.783702850 +0200
++++ pastix.c	2024-10-12 18:56:54.777791000 +0200
+@@ -938,7 +938,6 @@
  void pastix_cleanup(ITG *neq,ITG *symmetryflag){
  	if( redo && !firstIter ){
          if(spm->values == aupastix) spm->values = NULL;

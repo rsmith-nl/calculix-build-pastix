@@ -14,7 +14,7 @@ FC=gfortran13
 
 include Makefile.inc
 
-SCCXMAIN = ccx_2.21.c
+SCCXMAIN = ccx_2.22.c
 
 OCCXF = $(SCCXF:.f=.o)
 OCCXC = $(SCCXC:.c=.o)
@@ -30,9 +30,9 @@ LIBS = -L../../lib \
      $(PASTIX_LIBS) \
      -lpthread -lm -lz -lc
 
-ccx_2.21_i8: $(OCCXMAIN) ccx_2.21.a
-	./date.pl; $(CC) $(CFLAGS) -c ccx_2.21.c; $(FC) -Wall -O2 -o $@ \
-	$(OCCXMAIN) ccx_2.21.a $(LIBS)
+ccx_2.22_i8: $(OCCXMAIN) ccx_2.22.a
+	./date.pl; $(CC) $(CFLAGS) -c ccx_2.22.c; $(FC) -Wall -O2 -o $@ \
+	$(OCCXMAIN) ccx_2.22.a $(LIBS)
 
-ccx_2.21.a: $(OCCXF) $(OCCXC)
+ccx_2.22.a: $(OCCXF) $(OCCXC)
 	ar vr $@ $?

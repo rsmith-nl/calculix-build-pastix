@@ -1,5 +1,5 @@
---- pastix.h.orig	2024-04-23 01:05:29.283386000 +0200
-+++ pastix.h	2024-04-23 01:08:06.911723000 +0200
+--- pastix.h.orig	2024-08-05 19:13:20.795702931 +0200
++++ pastix.h	2024-10-12 18:56:54.776638000 +0200
 @@ -46,6 +46,11 @@
  		ITG *neq, ITG *nzs, ITG *symmetryflag, ITG *inputformat,
  		ITG *jq, ITG *nzs3);

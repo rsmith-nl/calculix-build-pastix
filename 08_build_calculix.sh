@@ -4,22 +4,22 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T14:21:00+0100
-# Last modified: 2024-04-24T15:37:37+0200
+# Last modified: 2024-10-12T19:02:49+0200
 
 set -e
 PREFIX=`pwd`
 
 cd source
 rm -rf ccx CalculiX
-tar xf ../distfiles/ccx_2.21.src.tar.bz2
-mv CalculiX/ccx_2.21/src ccx
+tar xf ../distfiles/ccx_2.22.src.tar.bz2
+mv CalculiX/ccx_2.22/src ccx
 rm -rf CalculiX
 
 cd ccx
 cp ../../patches/Makefile_RFS .
-patch -p 1 < ../../patches/ccx/ccx_pastix.h.patch
-patch -p 1 < ../../patches/ccx/ccx_pastix.c.patch
-patch -p 3 < ../../patches/ccx/0004-fixup-implicit-function-declaration.patch
+patch < ../../patches/ccx/ccx_pastix.h.patch
+patch < ../../patches/ccx/ccx_pastix.c.patch
+patch < ../../patches/ccx/0004-fixup-implicit-function-declaration.patch
 gmake -f Makefile_RFS
 strip ccx_2.21_i8
 mv ccx_2.21_i8 ccx_i8
