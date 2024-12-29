@@ -4,7 +4,7 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T14:21:00+0100
-# Last modified: 2024-10-13T14:44:17+0200
+# Last modified: 2024-12-29T19:43:29+0100
 
 set -e
 PREFIX=`pwd`
@@ -24,4 +24,4 @@ gmake -f Makefile_RFS
 strip ccx_2.22_i8
 mv ccx_2.22_i8 ccx_i8
 install -m 700 ccx_i8 ${PREFIX}/bin
-install -m 700 ccx_i8 ~/.local/bin
+#install -m 700 ccx_i8 ~/.local/bin
