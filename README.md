@@ -45,10 +45,10 @@ These instructions are geared towards building CalculiX on a FreeBSD UNIX
 workstation.
 
 **_NOTE:_**
-These scripts will *not* work on Linux without modifications!
+These scripts will *not* work on Linux or MSYS2 without modifications!
 The GNU versions of e.q. `sed` and `patch` take slightly different arguments,
 and GNU make is generally installed as `make`.
-Please fork and adapt this repository if you want to use it on Linux.
+Please fork and adapt this repository if you want to use it on Linux or MSYS2.
 
 The second prerequisite is a development environment.
 More specifically;
@@ -108,7 +108,9 @@ the library on.
 Note that even though threads are disabled, it is **critical** that
 `USE_LOCKING=1` is used, because CalculiX *is* using multiple threads.
 
-Also the buffer size is increased to 1 GiB, up from the default 32 MiB.
+Also the buffer size is increased to 1 GiB (`BUFFERSIZE=25`), up from the
+default 32 MiB (`BUFFERSIZE=20`).
+For machines with less than 32 GiB of RAM, set `BUFFERSIZE` around 22.
 
 ```
 sh 02_build_openblas.sh |& tee logfiles/openblas.log
@@ -157,8 +159,8 @@ sh 07_build_pastix_kabbone.sh | & tee logfiles/pastix.log
 ```
 
 And finally it is time to build the CalculiX solver itself.
-The script installs this version as `ccx_i8` in `~/.local/bin`.
-Comment this out or change it if you want to put it somewhere else.
+The script installs this version as `ccx_i8` in the `bin` directory.
+From there, copy it to a location in your `PATH`
 
 ```
 sh 08_build_calculix.sh | & tee logfiles/calculix.log
