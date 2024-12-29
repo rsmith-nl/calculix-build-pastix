@@ -4,15 +4,15 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:42:22+0100
-# Last modified: 2024-04-24T14:49:53+0200
+# Last modified: 2024-12-29T21:31:35+0100
 
 set -e
 PREFIX=`pwd`
 
 cd source
 rm -rf scotch*
-tar xf ../distfiles/scotch-v6.0.8.tar.gz
-mv scotch-v6.0.8 scotch
+tar xf ../distfiles/scotch-v7.0.6.tar.gz
+mv scotch-v7.0.6 scotch
 cd scotch/src
 cp ../../../patches/scotch/Makefile.inc.RFS Makefile.inc
 gmake libscotch
