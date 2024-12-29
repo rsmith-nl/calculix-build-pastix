@@ -4,17 +4,18 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:41:52+0100
-# Last modified: 2024-06-07T13:03:29+0200
+# Last modified: 2024-12-29T19:17:13+0100
 
 set -e
 PREFIX=`pwd`
 
 cd source
 rm -rf hwloc*
-tar xf ../distfiles/hwloc-2.10.0.tar.bz2
-mv hwloc-2.10.0 hwloc
+tar xf ../distfiles/hwloc-2.11.2.tar.gz
+mv hwloc-hwloc-2.11.2 hwloc
 
 cd hwloc
+./autogen.sh
 env CC=gcc13 CXX=g++13 LIBS='-lexecinfo -lpciaccess -lm'\
     ./configure \
     --prefix=${PREFIX} \
