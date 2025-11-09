@@ -2,7 +2,7 @@ PASTIX_INCLUDE = ../../include/
 DIR=../spooles
 
 CFLAGS = -O2 -fopenmp -I$(DIR) -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DINTSIZE64 -DPASTIX -DPASTIX_FP32
-FFLAGS = -O2 -fopenmp -fdefault-integer-8 -ffixed-form -std=legacy -fallow-argument-mismatch
+FFLAGS = -O2 -fopenmp -fdefault-integer-8 -ffixed-form -std=legacy -fallow-argument-mismatch -cpp
 
 CC=gcc13
 FC=gfortran13
@@ -14,7 +14,7 @@ FC=gfortran13
 
 include Makefile.inc
 
-SCCXMAIN = ccx_2.22.c
+SCCXMAIN = ccx_2.23.c
 
 OCCXF = $(SCCXF:.f=.o)
 OCCXC = $(SCCXC:.c=.o)
@@ -30,9 +30,9 @@ LIBS = -L../../lib \
      $(PASTIX_LIBS) \
      -lpthread -lm -lz -lc
 
-ccx_2.22_i8: $(OCCXMAIN) ccx_2.22.a
-	./date.pl; $(CC) $(CFLAGS) -c ccx_2.22.c; $(FC) -Wall -O2 -o $@ \
-	$(OCCXMAIN) ccx_2.22.a $(LIBS)
+ccx_2.23_i8: $(OCCXMAIN) ccx_2.23.a
+	./date.pl; $(CC) $(CFLAGS) -c ccx_2.23.c; $(FC) -Wall -O2 -o $@ \
+	$(OCCXMAIN) ccx_2.23.a $(LIBS)
 
-ccx_2.22.a: $(OCCXF) $(OCCXC)
+ccx_2.23.a: $(OCCXF) $(OCCXC)
 	ar vr $@ $?
