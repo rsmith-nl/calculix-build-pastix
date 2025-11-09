@@ -4,15 +4,15 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:41:52+0100
-# Last modified: 2024-12-29T19:17:13+0100
+# Last modified: 2025-11-09T18:55:00+0100
 
 set -e
 PREFIX=`pwd`
 
 cd source
 rm -rf hwloc*
-tar xf ../distfiles/hwloc-2.11.2.tar.gz
-mv hwloc-hwloc-2.11.2 hwloc
+tar xf ../distfiles/hwloc-2.12.2.tar.gz
+mv hwloc-hwloc-2.12.2 hwloc
 
 cd hwloc
 ./autogen.sh
