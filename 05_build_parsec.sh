@@ -4,10 +4,13 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:42:10+0100
-# Last modified: 2024-04-24T14:30:09+0200
+# Last modified: 2025-11-09T19:04:37+0100
 
 set -e
 PREFIX=`pwd`
+
+# This requires cython 0.2x for the build, not cython3.
+# Cython3 and cython are not compatible, so remove cython3.
 
 cd source
 rm -rf *parsec*
