@@ -1,5 +1,5 @@
 --- CMakeLists.txt.orig	2021-01-10 11:58:33.000000000 +0100
-+++ CMakeLists.txt	2024-04-11 22:43:46.899060000 +0200
++++ CMakeLists.txt	2026-01-03 23:16:23.459519000 +0100
 @@ -51,7 +51,7 @@
  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GNU_SOURCE ")
  SET(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ")
@@ -9,6 +9,24 @@
  #SET(CMAKE_RANLIB "gcc-ranlib")
  SET(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
  SET(CMAKE_C_ARCHIVE_FINISH   true)
+@@ -876,12 +876,12 @@
+ install(FILES ${PASTIX_HDRS} DESTINATION include/pastix )
+ 
+ ## Executable and tests
+-enable_testing()
+-include(CTest)
+-# Examples executables
+-add_subdirectory(example)
++##enable_testing()
++##include(CTest)
++# Examples executables
++##add_subdirectory(example)
+ # Testing executables
+-add_subdirectory(test)
++##add_subdirectory(test)
+ 
+ ### Wrappers
+ add_subdirectory(wrappers)
 @@ -946,153 +946,3 @@
    PROJECTNAME PASTIX )
  
