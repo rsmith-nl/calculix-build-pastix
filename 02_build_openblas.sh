@@ -5,7 +5,7 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-02-18T16:43:42+0100
-# Last modified: 2025-11-09T18:50:17+0100
+# Last modified: 2026-01-17T10:46:22+0100
 
 set -e
 PREFIX=`pwd`
@@ -15,8 +15,8 @@ PREFIX=`pwd`
 
 cd source
 rm -rf OpenBLAS
-tar xf ../distfiles/OpenBLAS-0.3.30.tar.gz
-mv OpenBLAS-0.3.30 OpenBLAS
+tar xf ../distfiles/OpenBLAS-0.3.31.tar.gz
+mv OpenBLAS-0.3.31 OpenBLAS
 
 cd OpenBLAS
 # Do *not* use USE_OPENMP=1. Pastix needs a singe-threaded build, hence USE_THREAD=0.
@@ -37,11 +37,11 @@ rm -rf OpenBLAS
 
 # OpenBLAS build complete. (BLAS CBLAS LAPACK LAPACKE)
 #
-#  OS               ... FreeBSD
-#  Architecture     ... x86_64
-#  BINARY           ... 64bit
-#  Use 64 bits int    (equivalent to "-i8" in Fortran)
-#  C compiler       ... GCC  (cmd & version : gcc13 (FreeBSD Ports Collection) 13.3.0)
-#  Fortran compiler ... GFORTRAN  (cmd & version : GNU Fortran (FreeBSD Ports Collection) 13.3.0)
-#  Library Name     ... libopenblas-r0.3.30.a (Single-threading)
-#  Supporting multiple x86_64 cpu models with minimum requirement for the common code being HASWELL
+# OS               ... FreeBSD
+# Architecture     ... x86_64
+# BINARY           ... 64bit
+# Use 64 bits int    (equivalent to "-i8" in Fortran)      
+# C compiler       ... GCC  (cmd & version : gcc13 (FreeBSD Ports Collection) 13.3.0)
+# Fortran compiler ... GFORTRAN  (cmd & version : GNU Fortran (FreeBSD Ports Collection) 13.3.0)
+# Library Name     ... libopenblas-r0.3.31.a (Single-threading)  
+# Supporting multiple x86_64 cpu models with minimum requirement for the common code being HASWELL
