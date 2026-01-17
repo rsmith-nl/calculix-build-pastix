@@ -4,10 +4,19 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:42:32+0100
-# Last modified: 2024-04-24T14:56:06+0200
+# Last modified: 2026-01-17T10:29:51+0100
 
 set -e
 PREFIX=`pwd`
+
+# This build *requires* Python 2.7.
+# The code generation scripts in this version of PaStiX do *not* work with
+# python 3!
+if ! which python2.7 >/dev/null; then
+        echo "Python 2.7 not found."
+        echo "It is required for building this version of pastix. Exiting..."
+        exit 1
+fi
 
 cd source
 rm -rf pastix
@@ -19,9 +28,6 @@ patch < ../../patches/pastix/kabbone-CMakeLists.txt.patch
 patch < ../../patches/pastix/spm.c.patch
 patch < ../../patches/pastix/bcsc_z.h.patch
 
-# This build *requires* Python 2.7.
-# The code generation scripts in this version of PaStiX do *not* work with
-# python 3!
 mkdir build
 cd build
 env PKG_CONFIG_PATH=${PREFIX}/lib/pkgconfig \
