@@ -4,7 +4,7 @@
 #
 # Author: R.F. Smith <rsmith@xs4all.nl>
 # Created: 2024-03-23T11:42:32+0100
-# Last modified: 2026-01-17T10:29:51+0100
+# Last modified: 2026-05-27T09:32:14+0200
 
 set -e
 PREFIX=`pwd`
@@ -37,7 +37,6 @@ cmake   -Wno-dev \
         -DCMAKE_PREFIX_PATH=${PREFIX} \
         -DCMAKE_INSTALL_PREFIX=${PREFIX} \
         -DCMAKE_BUILD_TYPE=Release \
-        -DPASTIX_WITH_PARSEC=ON \
         -DSCOTCH_DIR=${PREFIX} \
         -DPASTIX_ORDERING_SCOTCH=ON \
         -DCMAKE_C_COMPILER=gcc13 \
