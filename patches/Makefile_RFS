@@ -1,7 +1,7 @@
 PASTIX_INCLUDE = ../../include/
 DIR=../spooles
 
-CFLAGS = -O2 -fopenmp -I$(DIR) -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DINTSIZE64 -DPASTIX -DPASTIX_FP32
+CFLAGS = -O2 -fopenmp -I$(DIR) -I$(PASTIX_INCLUDE) -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE -DINTSIZE64 -DPASTIX -DPASTIX_FP32 -Wno-incompatible-pointer-types
 FFLAGS = -O2 -fopenmp -fdefault-integer-8 -ffixed-form -std=legacy -fallow-argument-mismatch
 
 CC=gcc13
@@ -20,7 +20,7 @@ OCCXF = $(SCCXF:.f=.o)
 OCCXC = $(SCCXC:.c=.o)
 OCCXMAIN = $(SCCXMAIN:.c=.o)
 
-PASTIX_LIBS = -lpastix -lpastix_kernels -lpastix_parsec -lparsec -lhwloc -lspm
+PASTIX_LIBS = -lpastix -lpastix_kernels -lhwloc -lspm
 PASTIX_LIBS += -lscotch -lscotcherrexit -lopenblas
 PASTIX_LIBS += -lgomp -lstdc++ -lpciaccess -latomic -lexecinfo
 
@@ -35,4 +35,4 @@ ccx_2.22_i8: $(OCCXMAIN) ccx_2.22.a
 	$(OCCXMAIN) ccx_2.22.a $(LIBS)
 
 ccx_2.22.a: $(OCCXF) $(OCCXC)
-	ar vr $@ $?
+	gcc_ar13 vr $@ $?

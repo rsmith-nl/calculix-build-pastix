@@ -64,8 +64,6 @@ More specifically;
 * bison
 * Python 2.7 (for PaStiX code expansion)
 * Python 3
-* Cython 0.2x (for building parsec; Cython 3 doesn't work)
-
 
 ## Running the build
 
@@ -129,17 +127,6 @@ the configuration. YMMV.
 
 ```
 sh 04_build_hwloc.sh|& tee logfiles/hwloc.log
-```
-
-Building PaRSEC required me to fix the location of some include files.
-This is done in the shell-script using `sed`.
-These commands can probably be commented out on Linux.
-If not, they need to be adapted since GNU sed is slightly different in its use
-of the `-i` option.
-Note that this also requires Cython 0.2x. Cython 3 does not work.
-
-```
-sh 05_build_parsec.sh|& tee logfiles/parsec.log
 ```
 
 The next step is to build the scotch ordering library.
