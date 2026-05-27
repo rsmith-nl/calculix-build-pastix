@@ -35,4 +35,4 @@ ccx_2.22_i8: $(OCCXMAIN) ccx_2.22.a
 	$(OCCXMAIN) ccx_2.22.a $(LIBS)
 
 ccx_2.22.a: $(OCCXF) $(OCCXC)
-	gcc_ar13 vr $@ $?
+	gcc-ar13 vr $@ $?
